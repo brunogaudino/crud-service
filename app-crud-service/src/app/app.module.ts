@@ -5,6 +5,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { AppRoutingModule } from './app.routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { CreateComponent } from './create/create.component';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { HomeComponent } from './home/home.component';
   ],
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    CreateComponent
   ],
   exports: [
     AppComponent,

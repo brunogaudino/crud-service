@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { delay, tap } from 'rxjs/operators';
+
+import { CrudService } from '../crud.service';
 
 @Component({
   selector: 'crud-home',
@@ -7,9 +11,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  curso$: Observable<any>;
+
+  constructor(
+    private crudService: CrudService
+  ) { }
 
   ngOnInit() {
+  
+    this.curso$ = this.crudService.list().pipe(
+      delay(2000),
+      tap(console.log)
+    )
+    //console.log(this.curso$);
+    // this.crud2Service.list().subscribe(resp => {
+    //   console.log(resp);
+    // })
+
   }
 
 }
