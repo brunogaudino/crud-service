@@ -11,22 +11,29 @@ import { CrudService } from '../crud.service';
 })
 export class HomeComponent implements OnInit {
 
-  curso$: Observable<any>;
+  // course$: Observable<any>;
+  // course: Observable<object>;
+  listOfCourses: object = null;
+  flagNoDataToShow = false;
 
   constructor(
     private crudService: CrudService
   ) { }
 
   ngOnInit() {
-  
-    this.curso$ = this.crudService.list().pipe(
-      delay(2000),
-      tap(console.log)
-    )
-    //console.log(this.curso$);
-    // this.crud2Service.list().subscribe(resp => {
-    //   console.log(resp);
-    // })
+    // this.course$ = this.crudService.list().pipe(
+    //   delay(2000),
+    //   tap(console.log)
+    // )
+    this.crudService.list().subscribe((result) => {
+      console.log('result ', result);
+      this.flagNoDataToShow = false;
+      this.listOfCourses = result;
+    }, (error) => {
+      console.log('Error in the service > ', error);
+      this.flagNoDataToShow = true;
+      this.listOfCourses = null;
+    });
 
   }
 

@@ -11,8 +11,8 @@ export class CrudSharedService<T> {
   list() {
     return this.http.get<T[]>(this.API_URL + '/read')
       .pipe(
-        delay(2000),
-        tap(console.log)
+        delay(100)
+        //tap(console.log)
       );
   }
 
