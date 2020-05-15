@@ -1,17 +1,19 @@
 <h1>Form to create your register</h1>
 
-<form id="form-post">
+<form id="form-post" #formPost="ngForm" (ngSubmit)="onSubmit(formPost)">
   <div class="form-group">
       <label for="name">Name</label>
-      <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">
+      <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" ngModel>
   </div>
   <br>
   <div class="form-group">
       <label for="email">Course</label>
-      <input type="text" class="form-control" id="course" name="course" placeholder="Course">
+      <input type="text" class="form-control" id="course" name="course" placeholder="Course" ngModel>
   </div>
   <br>
-  <input type="hidden" name="idTimeStamp">
+  <!-- <div class="form-group">
+    <input type="hidden" name="idTimeStamp" id="idTimeStamp" class="form-control" ngModel>
+  </div> -->
   <hr><br>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>

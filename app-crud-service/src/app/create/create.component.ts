@@ -1,15 +1,43 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { CrudService } from '../crud.service';
+
 
 @Component({
-  selector: 'crud-create',
+  selector: 'app-crud-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.css']
 })
 export class CreateComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private crudService: CrudService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
+  }
+
+  onSubmit(formData: NgForm) {
+    // The API will generate the ID
+    // const setIdTimeStamp = Date.now();
+    // formData.controls.idTimeStamp.setValue(setIdTimeStamp);
+    this.crudService.create(formData.value).subscribe(
+      (returnData) => {
+        console.log('return componente ', returnData);
+      }, (error) => {
+        console.log('error compoente ', error);
+      }
+    );
+
+    formData.reset();
+
+    setTimeout(() => {
+      this.router.navigate(['/']);
+    }, 100);
+
   }
 
 }

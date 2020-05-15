@@ -9,6 +9,7 @@ CrudDAO.prototype.read = function() {
 
 CrudDAO.prototype.create = function(params) {
   const dbAccess = this._connection;
+  console.log('crud dao ', params);
   const returnData = dbAccess.dblow.push(params).write();
   return returnData;
 }
