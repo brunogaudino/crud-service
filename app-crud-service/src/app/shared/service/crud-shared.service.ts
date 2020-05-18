@@ -1,6 +1,11 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { delay } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { delay, retry, catchError } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
 
 export class CrudSharedService<T> {
 
@@ -32,12 +37,24 @@ export class CrudSharedService<T> {
     // );
   }
 
-  // private handleError<T>(operation = 'operation', result: T) {
-  //   return (error: any): Observable<T> => {
-  //     console.error('handleError ', error);
-  //     console.log(operation + 'failed: ' + error.message);
-  //     return of(error as T);
-  //   };
-  // }
+  delete(idData: number ) {
+    return this.http.delete<number>(this.API_URL + '/delete/' + idData, this.httpOptions).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
+  handleError(error: HttpErrorResponse) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      // Client error
+      errorMessage = error.error.message;
+    } else {
+      // Server error
+      errorMessage = `Error code: ${error.status}, ` + `message: ${error.message}`;
+    }
+    console.log(errorMessage);
+    return throwError(errorMessage);
+  }
 
 }

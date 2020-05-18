@@ -15,7 +15,7 @@ module.exports = function(main) {
     main.app.controllers.Crud.create(main, req, res);
   });
 
-  main.delete('/delete', function(req,res) {
+  main.delete('/delete/:id', function(req,res) {
     main.infra.connect();
     main.app.controllers.Crud.delete(main, req, res);
   });

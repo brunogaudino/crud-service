@@ -19,7 +19,7 @@
       <td>{{studentCourse.name}}</td>
       <td>{{studentCourse.course}}</td>
       <td><a [routerLink]="['/update']" routerLinkActive="router-link-active" >V</a></td>
-      <td><a [routerLink]="['/delete']" routerLinkActive="router-link-active" >X</a></td>      
+      <td><a (click)="deleteData(studentCourse.id)" href="javascript:void(0)" >X</a></td>      
     </tr>
   </tbody>
 </table>

@@ -17,7 +17,7 @@ module.exports.create = function(main, req, res) {
 }
 
 module.exports.delete = function(main, req, res) {
-  var dataForm = req.body;
+  var dataForm = req.params;
   var connection = main.infra.connect;
   var dbReturn = new main.app.models.CrudDAO(connection);
   var result = dbReturn.delete(dataForm);

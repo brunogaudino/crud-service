@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient } from '@angular/common/http';
 
-import { CrudSharedService } from "./shared/service/crud-shared.service";
+import { CrudSharedService } from './shared/service/crud-shared.service';
 
 @Injectable({
   providedIn: 'root'

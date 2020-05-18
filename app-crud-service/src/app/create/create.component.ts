@@ -26,9 +26,9 @@ export class CreateComponent implements OnInit {
     // formData.controls.idTimeStamp.setValue(setIdTimeStamp);
     this.crudService.create(formData.value).subscribe(
       (returnData) => {
-        console.log('return componente ', returnData);
+        console.log('Component created ', returnData);
       }, (error) => {
-        console.log('error compoente ', error);
+        console.log('Return error ', error);
       }
     );
 
