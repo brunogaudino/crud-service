@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { CrudService } from '../crud.service';
 
@@ -14,10 +14,18 @@ export class CreateComponent implements OnInit {
 
   constructor(
     private crudService: CrudService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
+    this.route.params.subscribe((paramValue) => {
+      if (paramValue.id !== undefined) {
+        console.log('param.id !== undefined ', paramValue.id);
+      } else {
+        console.log('param.id === undefined ', paramValue.id);
+      }
+    });
   }
 
   onSubmit(formData: NgForm) {

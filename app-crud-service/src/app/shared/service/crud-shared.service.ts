@@ -44,6 +44,10 @@ export class CrudSharedService<T> {
     );
   }
 
+  update(dataForm: object): Observable<object> {
+    return this.http.put<object>(this.API_URL + '/update', dataForm, this.httpOptions);
+  }
+
   handleError(error: HttpErrorResponse) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {

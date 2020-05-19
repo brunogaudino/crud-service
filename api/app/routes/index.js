@@ -20,7 +20,7 @@ module.exports = function(main) {
     main.app.controllers.Crud.delete(main, req, res);
   });
 
-  main.put('/update', function(req,res) {
+  main.put('/update/:id', function(req,res) {
     main.infra.connect();
     main.app.controllers.Crud.update(main, req, res);
   });

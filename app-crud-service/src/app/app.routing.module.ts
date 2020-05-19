@@ -12,13 +12,12 @@ const routes: Routes = [
   {
     path: 'create',
     component: CreateComponent
-  }
-  /*
+  },
   {
-    path: 'update',
-    component: UpdateComponent
+    path: 'update/:id',
+    component: CreateComponent
   }
-  */
+
 ];
 
 @NgModule({

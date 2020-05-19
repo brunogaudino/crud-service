@@ -21,6 +21,7 @@ CrudDAO.prototype.delete = function(params) {
 
 CrudDAO.prototype.update = function(params) {
   const dbAccess = this._connection;
+  console.log('chegou no db ', params);
   const returnData = dbAccess.dblow.find({id: params.id}).assign({
     "name": params.name,
     "course": params.course
