@@ -5,6 +5,13 @@ module.exports.read = function(main, req, res) {
   res.json(result); 
 }
 
+module.exports.readByParam = function(main, req, res) {
+  var connection = main.infra.connect;
+  var dbReturn = new main.app.models.CrudDAO(connection);
+  var result = dbReturn.readByParam(req.params.id);
+  res.json(result); 
+}
+
 module.exports.create = function(main, req, res) {
   var dataForm = req.body;
   var timestamp = new Date().getTime();

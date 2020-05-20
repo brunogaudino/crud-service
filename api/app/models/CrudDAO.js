@@ -7,6 +7,12 @@ CrudDAO.prototype.read = function() {
   return dbAccess.dblow.filter().write();
 }
 
+CrudDAO.prototype.readByParam = function(param) {
+  const dbAccess = this._connection;
+  console.log('by pram ', param);
+  return dbAccess.dblow.filter({id: param}).write();
+}
+
 CrudDAO.prototype.create = function(params) {
   const dbAccess = this._connection;
   const returnData = dbAccess.dblow.push(params).write();

@@ -12,6 +12,8 @@ import { CrudService } from '../crud.service';
 })
 export class CreateComponent implements OnInit {
 
+  returnDataService: any;
+
   constructor(
     private crudService: CrudService,
     private router: Router,
@@ -20,10 +22,18 @@ export class CreateComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((paramValue) => {
+
       if (paramValue.id !== undefined) {
-        console.log('param.id !== undefined ', paramValue.id);
+        this.crudService.readByParam(paramValue.id).subscribe((result) => {
+          this.returnDataService = result;
+          this.returnDataService = JSON.parse(this.returnDataService);
+          this.returnDataService = this.returnDataService[0];
+          console.log('result by param ', this.returnDataService);
+        });
+
       } else {
-        console.log('param.id === undefined ', paramValue.id);
+        this.returnDataService = {};
+        console.log('param.id === undefined ', this.returnDataService);
       }
     });
   }

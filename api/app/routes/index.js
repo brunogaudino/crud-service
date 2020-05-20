@@ -10,6 +10,11 @@ module.exports = function(main) {
     main.app.controllers.Crud.read(main, req, res);
   });
 
+  main.get('/read-by-param/:id', function(req,res) {
+    main.infra.connect();
+    main.app.controllers.Crud.readByParam(main, req, res);
+  });
+
   main.post('/create', function(req,res) {
     main.infra.connect();
     main.app.controllers.Crud.create(main, req, res);

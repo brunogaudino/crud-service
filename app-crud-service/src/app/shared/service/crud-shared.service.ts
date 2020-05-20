@@ -29,6 +29,10 @@ export class CrudSharedService<T> {
       );
   }
 
+  readByParam(param: number) {
+    return this.http.get<T[]>(this.API_URL + '/read-by-param/' + param, this.httpOptions);
+  }
+
   create(dataForm: object): Observable<object> {
     return this.http.post<object>(this.API_URL + '/create', dataForm, this.httpOptions);
     // .pipe(
