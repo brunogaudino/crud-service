@@ -24,17 +24,15 @@ module.exports.create = function(main, req, res) {
 }
 
 module.exports.delete = function(main, req, res) {
-  var dataForm = req.params;
   var connection = main.infra.connect;
   var dbReturn = new main.app.models.CrudDAO(connection);
-  var result = dbReturn.delete(dataForm);
+  var result = dbReturn.delete(req.params.id);
   res.json(result);
   //res.redirect('/');  
 }
 
 module.exports.update = function(main, req, res) {
   var dataForm = req.body;
-  //console.log('UPDATE ', dataForm);
   var connection = main.infra.connect;
   var dbReturn = new main.app.models.CrudDAO(connection);
   var result = dbReturn.update(dataForm);

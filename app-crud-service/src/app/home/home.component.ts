@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
     this.readData();
   }
 
-  readData() {
+  readData(): void {
     this.crudService.read().subscribe((result) => {
 
       this.flagNoDataToShow = false;
@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
 
   }
 
-  deleteData(idData: number) {
+  deleteData(idData: number): void {
     this.crudService.delete(idData).subscribe(() => {
       this.readData();
       console.log('Data deleted!');
@@ -44,11 +44,11 @@ export class HomeComponent implements OnInit {
 
   }
 
-  updateData(dataForm: object) {
+  updateData(dataForm: object): void {
     this.crudService.update(dataForm).subscribe((result) => {
-      console.log('return service ', result);
+      console.log('Return service updated ', result);
     }, (error) => {
-      console.log('Return error ', error);
+      console.log('Return error component ', error);
     });
   }
 

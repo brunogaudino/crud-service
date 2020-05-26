@@ -1,6 +1,8 @@
-<h1>Form to create your register</h1>
 
-<form id="form-post" #formPost="ngForm" (ngSubmit)="onSubmit(formPost)">
+<h1 *ngIf="flagUpdateData">Form to update your register</h1>
+<h1 *ngIf="!flagUpdateData">Form to create your register</h1>
+
+<form id="form-post" #formPost="ngForm" (ngSubmit)="formPost.form.valid && onSubmit(formPost)" novalidate>
   <div class="form-group">
       <label for="name">Name</label>
       <input 
@@ -9,8 +11,8 @@
         id="name" 
         name="name" 
         placeholder="Enter name"
-        value="{{returnDataService?.name}}"
-        ngModel>
+        [ngModel]="returnDataService?.name"
+        (ngModelChange)="returnDataService.name = $event">
   </div>
   <br>
   <div class="form-group">
@@ -21,13 +23,22 @@
         id="course" 
         name="course" 
         placeholder="Course" 
-        value="{{returnDataService?.course}}"
-        ngModel>
+        [ngModel]="returnDataService?.course"
+        (ngModelChange)="returnDataService.course = $event">
   </div>
   <br>
-  <!-- <div class="form-group">
-    <input type="hidden" name="idTimeStamp" id="idTimeStamp" class="form-control" ngModel>
-  </div> -->
+  <div class="form-group" *ngIf="flagUpdateData">
+    <input 
+      type="hidden" 
+      name="id" 
+      id="id" 
+      class="form-control" 
+      [ngModel]="returnDataService?.id"
+      (ngModelChange)="returnDataService.id = $event">
+  </div>
   <hr><br>
-  <button type="submit" class="btn btn-primary">Submit</button>
+
+  <button *ngIf="flagUpdateData" type="submit" class="btn btn-primary">Update</button>
+  <button *ngIf="!flagUpdateData" type="submit" class="btn btn-primary">Create</button>
+
 </form>

@@ -9,7 +9,6 @@ CrudDAO.prototype.read = function() {
 
 CrudDAO.prototype.readByParam = function(param) {
   const dbAccess = this._connection;
-  console.log('by pram ', param);
   return dbAccess.dblow.filter({id: param}).write();
 }
 
@@ -21,17 +20,13 @@ CrudDAO.prototype.create = function(params) {
 
 CrudDAO.prototype.delete = function(params) {
   const dbAccess = this._connection;
-  const returnData = dbAccess.dblow.remove({id: params.id}).write();
+  const returnData = dbAccess.dblow.remove({id: params}).write();
   return returnData;
 }
 
 CrudDAO.prototype.update = function(params) {
   const dbAccess = this._connection;
-  console.log('chegou no db ', params);
-  const returnData = dbAccess.dblow.find({id: params.id}).assign({
-    "name": params.name,
-    "course": params.course
-  }).write();
+  const returnData = dbAccess.dblow.find({id: params.id}).assign(params).write();
   return returnData;
 }
 

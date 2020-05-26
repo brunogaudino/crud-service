@@ -13,6 +13,7 @@ import { CrudService } from '../crud.service';
 export class CreateComponent implements OnInit {
 
   returnDataService: any;
+  flagUpdateData = false;
 
   constructor(
     private crudService: CrudService,
@@ -24,33 +25,46 @@ export class CreateComponent implements OnInit {
     this.route.params.subscribe((paramValue) => {
 
       if (paramValue.id !== undefined) {
+        this.flagUpdateData = true;
         this.crudService.readByParam(paramValue.id).subscribe((result) => {
           this.returnDataService = result;
           this.returnDataService = JSON.parse(this.returnDataService);
           this.returnDataService = this.returnDataService[0];
-          console.log('result by param ', this.returnDataService);
+          return this.returnDataService;
         });
 
       } else {
         this.returnDataService = {};
-        console.log('param.id === undefined ', this.returnDataService);
+        this.flagUpdateData = false;
       }
     });
+
   }
 
   onSubmit(formData: NgForm) {
     // The API will generate the ID
     // const setIdTimeStamp = Date.now();
     // formData.controls.idTimeStamp.setValue(setIdTimeStamp);
-    this.crudService.create(formData.value).subscribe(
-      (returnData) => {
-        console.log('Component created ', returnData);
-      }, (error) => {
-        console.log('Return error ', error);
-      }
-    );
+    if (this.flagUpdateData === true) {
+      this.crudService.update(formData.value).subscribe(
+        (returnData) => {
+          console.log('Component updated ', returnData);
+          formData.resetForm();
+        }
+      );
 
-    formData.reset();
+    } else {
+
+      this.crudService.create(formData.value).subscribe(
+        (returnData) => {
+          console.log('Component created ', returnData);
+          formData.resetForm();
+        }, (error) => {
+          console.log('Return error component ', error);
+        }
+      );
+
+    }
 
     setTimeout(() => {
       this.router.navigate(['/']);

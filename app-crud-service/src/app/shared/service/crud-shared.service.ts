@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { delay, retry, catchError } from 'rxjs/operators';
+import { delay, retry, catchError, tap } from 'rxjs/operators';
 import { Observable, of, throwError } from 'rxjs';
 import { Injectable } from '@angular/core';
 
@@ -24,32 +24,40 @@ export class CrudSharedService<T> {
   read(): Observable<object> {
     return this.http.get<T[]>(this.API_URL + '/read')
       .pipe(
-        delay(100)
-        // tap(console.log)
+        delay(100),
+        catchError(this.handleError)
       );
   }
 
-  readByParam(param: number) {
-    return this.http.get<T[]>(this.API_URL + '/read-by-param/' + param, this.httpOptions);
+  readByParam(param: number): Observable<object> {
+    return this.http.get<T[]>(this.API_URL + '/read-by-param/' + param, this.httpOptions)
+      .pipe(
+        delay(100),
+        catchError(this.handleError)
+      );
   }
 
   create(dataForm: object): Observable<object> {
-    return this.http.post<object>(this.API_URL + '/create', dataForm, this.httpOptions);
-    // .pipe(
-    //   tap((newData: object) => console.log('Data created ', newData)),
-    //   catchError(this.handleError<object>('Service error: ', dataForm))
-    // );
+    return this.http.post<object>(this.API_URL + '/create', dataForm, this.httpOptions)
+      .pipe(
+        tap((newData: object) => console.log('Service return created ', newData)),
+        catchError(this.handleError)
+      );
   }
 
-  delete(idData: number ) {
-    return this.http.delete<number>(this.API_URL + '/delete/' + idData, this.httpOptions).pipe(
+  delete(idData: number ): Observable<number> {
+    return this.http.delete<number>(this.API_URL + '/delete/' + idData).pipe(
       retry(1),
       catchError(this.handleError)
     );
   }
 
   update(dataForm: object): Observable<object> {
-    return this.http.put<object>(this.API_URL + '/update', dataForm, this.httpOptions);
+    return this.http.put<object>(this.API_URL + '/update', dataForm, this.httpOptions)
+      .pipe(
+        tap((changedData: object) => console.log('Service return updated ', changedData)),
+        catchError(this.handleError)
+      );
   }
 
   handleError(error: HttpErrorResponse) {
