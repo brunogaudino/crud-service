@@ -1,5 +1,5 @@
-function CrudDAO(connection){
-  this._connection = connection();
+function CrudDAO(connection, collectionName){
+  this._connection = connection(collectionName);
 }
 
 CrudDAO.prototype.read = function() {
